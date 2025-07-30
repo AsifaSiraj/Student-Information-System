@@ -96,4 +96,120 @@ This project provides **three roles (Admin, Teacher, Student)** with dedicated d
 | Teacher | T1@gmail.com | teacher123  |
 | Student | S1@gmail.com | student123  |
 
+🔒 System-Level Restrictions
+This project enforces strict rules at system, database, and application levels to ensure security and consistency.
+
+1. Role-Based Access Control
+Admin
+
+Add, edit, and delete students, teachers, departments, and courses.
+
+Register/unregister students in courses.
+
+Reassign teachers to courses.
+
+Teacher
+
+Can self-assign to unassigned courses.
+
+Cannot reassign once a course already has a teacher.
+
+Cannot add/edit/delete students or departments.
+
+Student
+
+Can only view their own courses and registrations.
+
+Cannot self-register (unless extended in future).
+
+Unauthorized access redirects to login (index.html).
+
+2. Database-Level Restrictions
+Students
+
+id → Auto Increment Primary Key.
+
+email → UNIQUE NOT NULL.
+
+roll_no → UNIQUE NOT NULL.
+
+department_id → Foreign Key (must exist in departments).
+
+password → NOT NULL.
+
+Teachers
+
+id → Auto Increment Primary Key.
+
+email → UNIQUE NOT NULL.
+
+Courses
+
+teacher_id → Nullable (course may be unassigned).
+
+Once a teacher assigns themselves → only admin can reassign.
+
+Registrations
+
+Combination of student_id + course_id must be unique.
+
+Prevents duplicate registrations.
+
+registered_by tracks whether Admin or Student registered.
+
+3. Application/Form Restrictions
+Student Form
+
+Name, Email, Roll No, Department → required.
+
+Email must be valid format.
+
+Password required on add, optional on update.
+
+Course Form
+
+Course Name and Code required.
+
+Department required.
+
+Teacher assignment optional.
+
+Delete Operations
+
+Confirmation prompt required before deletion.
+
+Teacher Dashboard
+
+Teacher can register themselves only in unassigned courses.
+
+Teacher cannot unregister or delete courses.
+
+4. Session & Security Restrictions
+Every page checks $_SESSION['role'] to confirm access rights.
+
+Direct URL access without a valid session redirects to login.
+
+Prevents role escalation (e.g., student pretending to be admin).
+
+Teacher self-assign logs are stored in teacher_course_logs for auditing.
+
+5. Business Logic Restrictions
+Teacher assignment is not mandatory for admin when creating a course.
+
+Only admin can unregister a student from a course.
+
+Duplicate Prevention:
+
+Students cannot be added with duplicate email or roll number.
+
+Students cannot be registered in the same course more than once.
+
+Audit Trail: Self-registrations by teachers are logged.
+
+6. Error Handling Restrictions
+Database errors (duplicate email/roll, invalid foreign keys) prevent insertion.
+
+By default, user is redirected without error feedback (extendable).
+
+Delete/Update operations fail silently if invalid ID is provided (extendable with error reporting).
 
