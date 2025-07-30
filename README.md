@@ -1,9 +1,3 @@
-Perfect 👍 Let’s create a **detailed GitHub README.md** for your project.
-
-Here’s a professional, structured **README** that explains your **Student Information System with roles (Admin, Teacher, Student), course management, registrations, and dashboards**.
-
----
-
 # 📚 Student Information System
 
 A role-based **Student Information System (SIS)** built with **PHP, MySQL, HTML, CSS, and FontAwesome**.
