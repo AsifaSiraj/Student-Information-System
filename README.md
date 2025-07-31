@@ -179,4 +179,3 @@ This project enforces strict rules at **system**, **database**, and **applicatio
 By default, user is redirected without error feedback (extendable).
 
 Delete/Update operations fail silently if invalid ID is provided (extendable with error reporting).
-
